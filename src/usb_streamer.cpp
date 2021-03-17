@@ -25,8 +25,7 @@ using namespace camera;
 using namespace std::chrono_literals;
 
 
-Streamer::Streamer() : 
-      Node("Video_streamer")
+Streamer::Streamer() : Node("asgasdga")
 {
 
   RCLCPP_INFO(this->get_logger(), "Video streamer ON");
@@ -47,7 +46,8 @@ Streamer::Streamer() :
   this->get_parameter_or<int>("configuration.height", configuration_.height, 480);
   this->get_parameter_or<double>("configuration.framerate", configuration_.framerate, 30);
   this->get_parameter_or<int>("configuration.flip_mode", configuration_.flip_mode, 2);
-  this->get_parameter_or<std::string>("configuration.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/param/usb_calibration.yaml");
+  this->get_parameter_or<std::string>("configuration.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/config/usb_calibration.yaml");
+  
 
   rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_sensor_data;
   camera_transport_pub_ = image_transport::create_camera_publisher(this, "/image_raw",custom_qos_profile);
@@ -142,9 +142,9 @@ void Streamer::ImageCallback()
 /*****************************************************************************
 ** Main
 *****************************************************************************/
-int main()
+int main(int argc, char *argv[])
 {
-  rclcpp::init(0, nullptr);
+  rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<camera::Streamer>());
   rclcpp::shutdown();
 

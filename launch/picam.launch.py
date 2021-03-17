@@ -26,7 +26,7 @@ from launch_ros.actions import Node
 # Package (where to find configs)
 pkg_name = 'ros2_camera'
 # Folder inside package to find yaml
-param_folder = 'param'
+param_folder = 'config'
 param_file = 'picam_conf.yaml'
 
 #=====================================

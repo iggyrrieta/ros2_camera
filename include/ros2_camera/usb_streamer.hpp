@@ -42,7 +42,7 @@ namespace camera
 class Streamer : public rclcpp::Node
 {
  public:
-  explicit Streamer();
+  Streamer();
 
  private:
   rclcpp::TimerBase::SharedPtr timer_;
@@ -52,6 +52,7 @@ class Streamer : public rclcpp::Node
 
   typedef struct
   {
+    std::string node_name;
     int camera_id;
     std::string camera_name;
     std::string frame_id;

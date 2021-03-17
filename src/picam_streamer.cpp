@@ -50,7 +50,7 @@ Streamer::Streamer() :
   this->get_parameter_or<int>("configuration.display_height", configuration_.display_height, 480);
   this->get_parameter_or<double>("configuration.framerate", configuration_.framerate, 90);
   this->get_parameter_or<int>("configuration.flip_mode", configuration_.flip_mode, 2);
-  this->get_parameter_or<std::string>("configuration.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/param/picam_calibration.yaml");
+  this->get_parameter_or<std::string>("configuration.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/config/picam_calibration.yaml");
 
   // Image transport publisher
   camera_transport_pub_ = image_transport::create_camera_publisher(this, "/image_raw");
@@ -160,9 +160,9 @@ void Streamer::ImageCallback()
 /*****************************************************************************
 ** Main
 *****************************************************************************/
-int main()
+int main(int argc, char *argv[])
 {
-  rclcpp::init(0, nullptr);
+  rclcpp::init(argc, argv);
   rclcpp::spin(std::make_shared<camera::Streamer>());
   rclcpp::shutdown();
 

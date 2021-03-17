@@ -16,7 +16,6 @@
 
 import os
 from ament_index_python.packages import get_package_share_directory
-from launch.substitutions import LaunchConfiguration
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -26,7 +25,7 @@ from launch_ros.actions import Node
 # Package (where to find configs)
 pkg_name = 'ros2_camera'
 # Folder inside package to find yaml
-param_folder = 'param'
+param_folder = 'config'
 param_file = 'usb_conf.yaml'
 
 #=====================================
@@ -35,12 +34,9 @@ param_file = 'usb_conf.yaml'
 def generate_launch_description():
 
     # Parameters
-    params_dir = LaunchConfiguration(
-        'params_dir',
-        default=os.path.join(
-            get_package_share_directory(pkg_name),
-                 param_folder,
-                 param_file))
+    params_dir = os.path.join(get_package_share_directory(pkg_name),
+                 	       param_folder,
+                 	       param_file)
 
     return LaunchDescription([
         # Camera 

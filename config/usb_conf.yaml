@@ -1,0 +1,11 @@
+/**:
+ ros__parameters:
+  configuration:
+      camera_id: 0
+      camera_name: "usb_cam"
+      frame_id: "camera_link"
+      width : 640
+      height : 480
+      framerate : 30.0
+      flip_mode : 2 # 0=reverse, 2=normal
+      camera_calibration_file: "package://ros2_camera/config/usb_calibration.yaml"
