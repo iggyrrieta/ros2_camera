@@ -37,6 +37,7 @@ def generate_launch_description():
     params_dir = os.path.join(get_package_share_directory(pkg_name),
                  	       param_folder,
                  	       param_file)
+                 	                        	    
 
     return LaunchDescription([
         # Camera 
@@ -45,6 +46,18 @@ def generate_launch_description():
             package='ros2_camera',
             executable='usb_streamer',
             parameters=[params_dir],
+            output='screen',
+            remappings=[('/image_raw', '/camera/image_raw'),
+                  	 ('/camera_info', '/camera/camera_info')],
+            emulate_tty=True),
+            
+        # Compress image 
+        Node(
+            package='image_transport',
+            executable='republish',
+            arguments=['raw', 'compressed'],
+            remappings=[('in','/camera/image_raw'),
+                        ('out','/camera/image_raw_compressed')],
             output='screen',
             emulate_tty=True)
     ])    
