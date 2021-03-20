@@ -47,8 +47,6 @@ def generate_launch_description():
             executable='usb_streamer',
             parameters=[params_dir],
             output='screen',
-            remappings=[('/image_raw', '/camera/image_raw'),
-                  	 ('/camera_info', '/camera/camera_info')],
             emulate_tty=True),
             
         # Compress image 
@@ -56,8 +54,8 @@ def generate_launch_description():
             package='image_transport',
             executable='republish',
             arguments=['raw', 'compressed'],
-            remappings=[('in','/camera/image_raw'),
-                        ('out','/camera/image_raw_compressed')],
+            remappings=[('in','/image_raw'),
+                        ('out','/image_raw_compressed')],
             output='screen',
             emulate_tty=True)
     ])    

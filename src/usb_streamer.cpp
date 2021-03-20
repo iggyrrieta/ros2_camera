@@ -50,7 +50,7 @@ Streamer::Streamer() : Node("asgasdga")
   
 
   rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_sensor_data;
-  camera_transport_pub_ = image_transport::create_camera_publisher(this, "/image_raw",custom_qos_profile);
+  camera_transport_pub_ = image_transport::create_camera_publisher(this, "/image_raw");
   //auto qos = rclcpp::QoS(rclcpp::KeepLast(10));
   //image_pub_ = this->create_publisher<sensor_msgs::msg::Image>("/image_raw", qos);
 
