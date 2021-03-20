@@ -25,11 +25,12 @@ using namespace camera;
 using namespace std::chrono_literals;
 
 
-Streamer::Streamer() : Node("asgasdga")
+Streamer::Streamer() : Node("camera")
 {
 
   RCLCPP_INFO(this->get_logger(), "Video streamer ON");
 
+  // CAMERA CONFIG
   this->declare_parameter("configuration.camera_id");
   this->declare_parameter("configuration.fame_id");
   this->declare_parameter("configuration.camera_name");
@@ -39,6 +40,28 @@ Streamer::Streamer() : Node("asgasdga")
   this->declare_parameter("configuration.flip_mode");
   this->declare_parameter("configuration.camera_calibration_file");
 
+  // VSLAM CONFIG
+  this->declare_parameter("vslam.publish_pointcloud");
+  this->declare_parameter("vslam.publish_pose");
+  this->declare_parameter("vslam.publish_tf");
+  this->declare_parameter("vslam.pointcloud_frame_id");
+  this->declare_parameter("vslam.camera_frame_id");
+  this->declare_parameter("vslam.map_file");
+  this->declare_parameter("vslam.voc_file");
+  this->declare_parameter("vslam.load_map");
+
+  // ORB SLAM configuration parameters
+  this->declare_parameter("vslam.camera_fps");
+  this->declare_parameter("vslam.camera_rgb_encoding");
+  this->declare_parameter("vslam.ORBextractor/nFeatures");
+  this->declare_parameter("vslam.ORBextractor/scaleFactor");
+  this->declare_parameter("vslam.ORBextractor/nLevels");
+  this->declare_parameter("vslam.ORBextractor/iniThFAST");
+  this->declare_parameter("vslam.ORBextractor/minThFAST");
+  this->declare_parameter("vslam.ThDepth");
+  this->declare_parameter("vslam.depth_map_factor");
+  this->declare_parameter("vslam.camera_baseline");
+
   this->get_parameter_or<int>("configuration.camera_id", configuration_.camera_id, 0);
   this->get_parameter_or<std::string>("configuration.frame_id", configuration_.frame_id, "camera");
   this->get_parameter_or<std::string>("configuration.camera_name", configuration_.camera_name, "usb_cam");
@@ -47,6 +70,15 @@ Streamer::Streamer() : Node("asgasdga")
   this->get_parameter_or<double>("configuration.framerate", configuration_.framerate, 30);
   this->get_parameter_or<int>("configuration.flip_mode", configuration_.flip_mode, 2);
   this->get_parameter_or<std::string>("configuration.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/config/usb_calibration.yaml");
+  
+  this->get_parameter_or<int>("vslam.camera_id", configuration_.camera_id, 0);
+  this->get_parameter_or<std::string>("vslam.frame_id", configuration_.frame_id, "camera");
+  this->get_parameter_or<std::string>("vslam.camera_name", configuration_.camera_name, "usb_cam");
+  this->get_parameter_or<int>("vslam.width", configuration_.width, 640);
+  this->get_parameter_or<int>("vslam.height", configuration_.height, 480);
+  this->get_parameter_or<double>("vslam.framerate", configuration_.framerate, 30);
+  this->get_parameter_or<int>("vslam.flip_mode", configuration_.flip_mode, 2);
+  this->get_parameter_or<std::string>("vslam.camera_calibration_file", configuration_.camera_calibration_file, "package://ros2_camera/config/usb_calibration.yaml");
   
 
   rmw_qos_profile_t custom_qos_profile = rmw_qos_profile_sensor_data;
